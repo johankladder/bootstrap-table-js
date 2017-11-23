@@ -1,0 +1,54 @@
+.image-data-view {
+  height: 50px;
+  position: relative;
+}
+
+.image-data-view-modal {
+  width: 100%;
+}
+
+.draggable-mirror {
+  display: none !important;
+}
+
+.draggable-source--is-dragging {
+  background-color: #4c4c4c;
+  color: white;
+}
+
+.parent-flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.entity-data-row:hover {
+  background-color: rgba(76, 76, 76, 0.2);
+  -webkit-transition: background-color 200ms linear;
+  transition: background-color 200ms linear;
+}
+
+.middle {
+  position: relative;
+  top: -35px;
+  display: none;
+  margin-bottom: -22px;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  text-align: center;
+  background-color: transparent !important;
+}
+
+.image-data-addon .loop {
+  color: white;
+}
+
+.image-data-addon:hover .image-data-view {
+  opacity: 0.3;
+}
+
+.image-data-addon:hover .middle {
+  display: block;
+  background: rgba(0, 0, 0, 0.6);
+}
+
