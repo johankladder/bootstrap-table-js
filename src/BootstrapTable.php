@@ -44,10 +44,15 @@ class BootstrapTable
 
     private function getCustomValues()
     {
+        $hit = false;
         foreach ($this->getHeaders() as $header) {
             if (array_key_exists('value', $header)) {
                 $this->setCustomValueData($header);
+                $hit = true;
             }
+        }
+        if (!$hit) {
+            $this->data = $this->extractFromOptions('data', new BootstrapTableJsException());
         }
     }
 
