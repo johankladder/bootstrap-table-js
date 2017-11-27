@@ -1,9 +1,15 @@
-import axios from 'axios';
+
 
 export default {
 
     delete: function (url, value) {
-        axios.delete(url)
+        $.ajax(url, {
+            type: 'DELETE',
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            error: function (error) {
+                console.log(error);
+            }
+        })
     }
 
 }
