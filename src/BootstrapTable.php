@@ -31,6 +31,9 @@ class BootstrapTable
 
     private function getData()
     {
+        if(!$this->data) {
+            $this->data = $this->extractFromOptions('data', new BootstrapTableJsException());
+        }
         return $this->data;
     }
 
@@ -65,12 +68,13 @@ class BootstrapTable
 
     private function setCustomValueData($header)
     {
-        $this->data = $this->extractFromOptions('data', new BootstrapTableJsException());
-        foreach ($this->data as &$currentData) {
+        $tempData = $this->getData();
+        foreach ($tempData as &$currentData) {
             $currentData[$header['key']] = call_user_func_array(
                 $header['value'], $currentData
             );
         }
+        $this->data = $tempData;
     }
 
     private function getAddonUrls($headers)
@@ -115,6 +119,8 @@ class BootstrapTable
     function render()
     {
         $this->getCustomValues();
+
+        //var_dump($this->getData());
 
         return view('bootstrap-table-js::table-view', [
             'parsedData' => $this->getData(),
