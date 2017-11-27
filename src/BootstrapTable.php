@@ -22,6 +22,8 @@ class BootstrapTable
 
     private $data;
 
+    private $headers;
+
     public function __construct(array $options = [])
     {
         $this->options = $options;
@@ -34,7 +36,10 @@ class BootstrapTable
 
     private function getHeaders()
     {
-        return $this->extractFromOptions('headers', new BootstrapTableJsException());
+        if(!$this->headers) {
+            $this->headers = $this->extractFromOptions('headers', new BootstrapTableJsException());
+        }
+        return $this->headers;
     }
 
     private function getTableOptions()
@@ -54,6 +59,8 @@ class BootstrapTable
         if (!$hit) {
             $this->data = $this->extractFromOptions('data', new BootstrapTableJsException());
         }
+
+        $this->getAddonUrls($this->getHeaders());
     }
 
     private function setCustomValueData($header)
@@ -65,6 +72,28 @@ class BootstrapTable
             );
         }
     }
+
+    private function getAddonUrls($headers)
+    {
+        foreach ($headers as &$header) {
+            if (array_key_exists('addon', $header)) {
+                foreach ($header['addon'] as $add) {
+                    foreach ($add as $a) {
+                        if (array_key_exists('params', $a)) {
+                            if (array_key_exists('url', $a['params'])) {
+                                $urlFunction = $a['params']['url'];
+                                foreach ($this->data as &$currentData) {
+                                    $url = call_user_func_array($urlFunction, [$currentData]);
+                                    $header['addon']['params']['url'] = $url;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
     private
     function extractFromOptions($key, \Exception $exception = null)

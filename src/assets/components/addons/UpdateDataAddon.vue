@@ -16,7 +16,7 @@
 
         methods: {
             onClick: function () {
-                document.location.href = this.params.url + '/' + this.data[this.params.identifier];
+                document.location.href = this.params.url;
             }
         }
     }
