@@ -1,6 +1,5 @@
 <template>
-    <div class="default-data">
-        {{ data.data }}
+    <div class="default-data" v-html="data.data">
     </div>
 </template>
 <script>
