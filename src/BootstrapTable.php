@@ -66,7 +66,6 @@ class BootstrapTable
         }
     }
 
-
     private
     function extractFromOptions($key, \Exception $exception = null)
     {
