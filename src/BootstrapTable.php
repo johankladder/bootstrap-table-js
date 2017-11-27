@@ -77,14 +77,14 @@ class BootstrapTable
     {
         foreach ($headers as &$header) {
             if (array_key_exists('addon', $header)) {
-                foreach ($header['addon'] as $add) {
-                    foreach ($add as $a) {
+                foreach ($header['addon'] as &$add) {
+                    foreach ($add as &$a) {
                         if (array_key_exists('params', $a)) {
                             if (array_key_exists('url', $a['params'])) {
                                 $urlFunction = $a['params']['url'];
                                 foreach ($this->data as &$currentData) {
                                     $url = call_user_func_array($urlFunction, [$currentData]);
-                                    $header['addon']['params']['url'] = $url;
+                                    $a['params']['url'] = $url;
                                 }
                             }
                         }
@@ -92,6 +92,7 @@ class BootstrapTable
                 }
             }
         }
+        $this->headers = $headers;
     }
 
 
