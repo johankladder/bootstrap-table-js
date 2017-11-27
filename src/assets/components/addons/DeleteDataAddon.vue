@@ -15,8 +15,7 @@
         methods: {
             onClick: function () {
                 ajax.delete(
-                    this.params.url,
-                    this.data[this.params.identifier],
+                    this.data['remove_url']
                 );
                 let index = this.$parent.entities.indexOf(this.data);
                 this.$parent.entities.splice(index, 1)

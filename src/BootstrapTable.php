@@ -82,10 +82,12 @@ class BootstrapTable
                         if (array_key_exists('params', $a)) {
                             if (array_key_exists('url', $a['params'])) {
                                 $urlFunction = $a['params']['url'];
-                                foreach ($this->data as &$currentData) {
+                                $tempData = $this->data;
+                                foreach ($tempData as &$currentData) {
                                     $url = call_user_func_array($urlFunction, [$currentData]);
-                                    $a['params']['url'] = $url;
+                                    $currentData[$a['key'] . '_url'] = $url;
                                 }
+                                $this->data = $tempData;
                             }
                         }
                     }
