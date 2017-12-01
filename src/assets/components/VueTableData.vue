@@ -10,6 +10,12 @@
                                 v-bind:params=extractAddonParams(addon)
                         ></image-data-addon>
                     </div>
+                    <div v-else-if="extractAddonKey(addon) === 'html'">
+                        <html-data-addon
+                                v-bind:data=data
+                                v-bind:params=extractAddonParams(addon)
+                        ></html-data-addon>
+                    </div>
                     <div v-else-if="extractAddonKey(addon) === 'remove'">
                         <delete-data-addon
                                 v-bind:data=entity
@@ -40,6 +46,7 @@
     import imageDataAddon from './addons/ImageDataAddon.vue'
     import deleteDataAddon from './addons/DeleteDataAddon.vue'
     import updateDataAddon from './addons/UpdateDataAddon.vue'
+    import htmlDataAddon from './addons/HtmlDataAddon.vue'
 
     export default {
         props: {
@@ -56,6 +63,7 @@
             'image-data-addon': imageDataAddon,
             'delete-data-addon': deleteDataAddon,
             'update-data-addon': updateDataAddon,
+            'html-data-addon': htmlDataAddon,
         },
 
         methods: {
