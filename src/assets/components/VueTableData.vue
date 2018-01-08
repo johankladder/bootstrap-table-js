@@ -10,6 +10,12 @@
                                 v-bind:params=extractAddonParams(addon)
                         ></image-data-addon>
                     </div>
+                    <div v-else-if="extractAddonKey(addon) === 'color'">
+                        <color-data-addon
+                                v-bind:data=data
+                                v-bind:params=extractAddonParams(addon)
+                        ></color-data-addon>
+                    </div>
                     <div v-else-if="extractAddonKey(addon) === 'html'">
                         <html-data-addon
                                 v-bind:data=data
@@ -47,6 +53,7 @@
     import deleteDataAddon from './addons/DeleteDataAddon.vue'
     import updateDataAddon from './addons/UpdateDataAddon.vue'
     import htmlDataAddon from './addons/HtmlDataAddon.vue'
+    import colorDataAddon from './addons/ColorDataAddon.vue'
 
     export default {
         props: {
@@ -64,6 +71,7 @@
             'delete-data-addon': deleteDataAddon,
             'update-data-addon': updateDataAddon,
             'html-data-addon': htmlDataAddon,
+            'color-data-addon': colorDataAddon,
         },
 
         methods: {
