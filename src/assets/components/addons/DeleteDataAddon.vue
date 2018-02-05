@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div class="col-xs-6">
         <button v-on:click="onClick" type="button" class="btn btn-link">
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
         </button>
@@ -8,17 +8,21 @@
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">
+                        <h4 class="modal-title" id="confirmation-modal-title">
                             {{confirmationTitle}}
                         </h4>
                     </div>
                     <div class="modal-footer">
-                        <button v-on:click="onConfirmationClick" type="button" class="btn btn-default"
-                                id="modal-btn-si">{{acceptText}}
-                        </button>
-                        <button v-on:click="onConfirmationDeclined" type="button" class="btn btn-primary"
-                                id="modal-btn-no">{{declineText}}
-                        </button>
+                        <div class="col-xs-6">
+                            <button v-on:click="onConfirmationClick" type="button" class="btn btn-success btn-block"
+                                    id="modal-btn-yes">{{acceptText}}
+                            </button>
+                        </div>
+                        <div class="col-xs-6">
+                            <button v-on:click="onConfirmationDeclined" type="button" class="btn btn-danger btn-block"
+                                    id="modal-btn-no">{{declineText}}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

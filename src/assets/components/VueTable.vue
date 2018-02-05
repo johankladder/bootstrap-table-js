@@ -1,6 +1,6 @@
 <template>
     <div>
-        <table class="table">
+        <table class="table table-responsive">
             <vue-table-header v-bind:headers="computedHeaders">
             </vue-table-header>
             <vue-table-data
