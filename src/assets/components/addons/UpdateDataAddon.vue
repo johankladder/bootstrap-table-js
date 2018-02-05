@@ -1,7 +1,7 @@
 <template>
 
     <div class="col-xs-6">
-        <button v-on:click="onClick" class="btn btn-link">
+        <button v-on:click="onClick" class="btn btn-link no-padding">
             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
         </button>
     </div>

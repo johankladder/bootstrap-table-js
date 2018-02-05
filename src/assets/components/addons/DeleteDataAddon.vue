@@ -1,6 +1,6 @@
 <template>
     <div class="col-xs-6">
-        <button v-on:click="onClick" type="button" class="btn btn-link">
+        <button v-on:click="onClick" type="button" class="btn btn-link no-padding">
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
         </button>
         <div v-if="params.confirmation" class="modal fade" tabindex="-1" role="dialog"

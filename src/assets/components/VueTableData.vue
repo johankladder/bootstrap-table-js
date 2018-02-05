@@ -1,7 +1,7 @@
 <template>
     <tbody>
     <tr v-for="(entity, index) in entitiesarray" class="entity-data-row">
-        <td v-for="data in parseEntityToCurrentHeaderFormat(entity)">
+        <td class="default-data" v-for="data in parseEntityToCurrentHeaderFormat(entity)">
             <div v-for="addons in extractAddons(data)" class="parent-flex">
                 <div v-for="addon in addons">
                     <div v-if="extractAddonKey(addon) === 'image'">
