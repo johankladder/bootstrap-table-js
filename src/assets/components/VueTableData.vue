@@ -10,7 +10,7 @@
                                 v-bind:params=extractAddonParams(addon)
                         ></image-data-addon>
                     </div>
-                    <div v-if="extractAddonKey(addon) === 'index'">
+                    <div v-else-if="extractAddonKey(addon) === 'index'">
                         {{index}}
                     </div>
                     <div v-else-if="extractAddonKey(addon) === 'color'">
