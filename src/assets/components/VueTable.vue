@@ -4,7 +4,7 @@
             <vue-table-header v-bind:headers="computedHeaders">
             </vue-table-header>
             <vue-table-data
-                    v-bind:entities="EntityData"
+                    v-bind:entitiesarray="entitiesarray"
                     v-bind:headers="computedHeaders"
                     v-bind:options="computedOptions"
             >
@@ -31,7 +31,8 @@
 
         data: function () {
             return {
-                'EntityData': JSON.parse(this.entities)
+                'entitiesarray': {},
+                'EntityData': JSON.parse(this.entities),
             }
         },
 
@@ -50,6 +51,7 @@
         mounted() {
             optionsFactory.defineOptions(this.computedOptions,
                 this);
+            this.entitiesarray = JSON.parse(this.entities);
         }
 
     }

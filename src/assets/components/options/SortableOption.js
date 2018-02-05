@@ -40,12 +40,13 @@ export class SortableOption {
     }
 
     reOrderEntitiesArray() {
-        var array = Array.prototype.move = function (from, to) {
-            this.splice(to, 0, this.splice(from, 1)[0]);
-        };
-        array = this.vueInstance.computedEntities;
-        array.move(this.draggedModel, this.draggedOnModel);
-        this.sortedEntityArray = array;
+
+        let draggedOnValue = this.vueInstance.entitiesarray[this.draggedOnModel];
+
+        Vue.set(this.vueInstance.entitiesarray, this.draggedOnModel, this.vueInstance.entitiesarray[this.draggedModel])
+        Vue.set(this.vueInstance.entitiesarray, this.draggedOnModel, draggedOnValue)
+
+        this.vueInstance.entitiesarray.splice(this.vueInstance.entitiesarray.length)
     }
 
     determineIfAjaxCallIsNecessary() {

@@ -1,6 +1,6 @@
 <template>
     <tbody>
-    <tr v-for="entity in entities" class="entity-data-row">
+    <tr v-for="(entity, index) in entitiesarray" class="entity-data-row">
         <td v-for="data in parseEntityToCurrentHeaderFormat(entity)">
             <div v-for="addons in extractAddons(data)" class="parent-flex">
                 <div v-for="addon in addons">
@@ -9,6 +9,9 @@
                                 v-bind:data=data
                                 v-bind:params=extractAddonParams(addon)
                         ></image-data-addon>
+                    </div>
+                    <div v-if="extractAddonKey(addon) === 'index'">
+                        {{index}}
                     </div>
                     <div v-else-if="extractAddonKey(addon) === 'color'">
                         <color-data-addon
@@ -54,16 +57,10 @@
     import updateDataAddon from './addons/UpdateDataAddon.vue'
     import htmlDataAddon from './addons/HtmlDataAddon.vue'
     import colorDataAddon from './addons/ColorDataAddon.vue'
+    import indexDataAddon from './addons/IndexDataAddon.vue'
 
     export default {
-        props: {
-            entities: {
-                type: Array
-            },
-            headers: {
-                type: Array
-            }
-        },
+        props: ['headers', 'entitiesarray'],
 
         components: {
             'default-data-addon': defaultDataAddon,
@@ -72,6 +69,7 @@
             'update-data-addon': updateDataAddon,
             'html-data-addon': htmlDataAddon,
             'color-data-addon': colorDataAddon,
+            'index-data-addon': indexDataAddon
         },
 
         methods: {

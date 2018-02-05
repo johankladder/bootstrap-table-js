@@ -3,6 +3,26 @@
         <button v-on:click="onClick" type="button" class="btn btn-link">
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
         </button>
+        <div v-if="params.confirmation" class="modal fade" tabindex="-1" role="dialog"
+             aria-labelledby="mySmallModalLabel" aria-hidden="true" id="confirmation-modal">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">
+                            {{confirmationTitle}}
+                        </h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button v-on:click="onConfirmationClick" type="button" class="btn btn-default"
+                                id="modal-btn-si">{{acceptText}}
+                        </button>
+                        <button v-on:click="onConfirmationDeclined" type="button" class="btn btn-primary"
+                                id="modal-btn-no">{{declineText}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -12,13 +32,54 @@
     export default {
         props: ['data', 'params'],
 
+        computed: {
+            acceptText: function () {
+                if (this.params.confirmation.acceptText) {
+                    return this.params.confirmation.acceptText;
+                }
+                return 'Yes';
+            },
+            declineText: function () {
+                if (this.params.confirmation.declineText) {
+                    return this.params.confirmation.declineText;
+                }
+                return 'No';
+            },
+            confirmationTitle: function () {
+                if (this.params.confirmation.title) {
+                    return this.params.confirmation.title;
+                }
+                return 'Confirmation'
+            }
+        },
+
         methods: {
             onClick: function () {
+                if (this.params.confirmation) {
+                    $("#confirmation-modal").modal('show');
+                } else {
+                    this.onConfirmationClick();
+                }
+            },
+            onConfirmationClick: function () {
+                this.performDeleteAjaxCall();
+                this.removeDataFromEntityArray(this.data);
+                this.hideConfirmationModal();
+            },
+            removeDataFromEntityArray: function (data) {
+                let index = this.$parent.entitiesarray.indexOf(data);
+                this.$parent.entitiesarray.splice(index, 1);
+            },
+            performDeleteAjaxCall: function () {
                 ajax.delete(
                     this.data['remove_url']
                 );
-                let index = this.$parent.entities.indexOf(this.data);
-                this.$parent.entities.splice(index, 1)
+            },
+            onConfirmationDeclined: function () {
+                this.hideConfirmationModal();
+            },
+            hideConfirmationModal: function () {
+                $("#confirmation-modal").modal('hide');
             }
         }
     }
