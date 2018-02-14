@@ -31,7 +31,7 @@ export class SortableOption {
     }
 
     extractEntityFromArrayWithIndex(index) {
-        return this.sortedEntityArray[index];
+        return this.vueInstance.entitiesarray[index];
     }
 
     performActionsAfterSort() {
