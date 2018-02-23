@@ -30,7 +30,7 @@
 .middle {
   position: relative;
   top: -35px;
-  display: none;
+  color: rgba(0, 0, 0, 0);
   margin-bottom: -22px;
   align-content: center;
   text-align: center;
@@ -46,7 +46,7 @@
 }
 
 .image-data-addon:hover .middle {
-  display: block;
+  color: black;
   background: rgba(0, 0, 0, .6);
 }
 

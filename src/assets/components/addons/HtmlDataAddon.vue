@@ -25,12 +25,7 @@
 
         computed: {
             computedModalId: function () {
-                if (this.modalId) {
-                    return this.modalId
-                } else {
-                    this.modalId = Math.floor(Math.random() * 1000 + 1);
-                    return this.modalId
-                }
+                return this.modalId ? this.modalId : Math.floor(Math.random() * 10000 + 1);
             },
             html() {
                 return require('../svgs/html.svg')

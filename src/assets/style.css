@@ -31,7 +31,7 @@
 .middle {
   position: relative;
   top: -35px;
-  display: none;
+  color: transparent;
   margin-bottom: -22px;
   -ms-flex-line-pack: center;
       align-content: center;
@@ -48,7 +48,7 @@
 }
 
 .image-data-addon:hover .middle {
-  display: block;
+  color: black;
   background: rgba(0, 0, 0, 0.6);
 }
 
