@@ -18,15 +18,10 @@ export class SortableOption {
     }
 
     defineCallbacks(sortable) {
-        const self = this;
-        sortable.on('sortable:sort', function (event) {
-            self.draggedModel = event.currentIndex
-
-        });
-
-        sortable.on('sortable:stop', function (event) {
-            self.draggedOnModel = event.newIndex;
-            self.performActionsAfterSort();
+        sortable.on('sortable:sorted', (event) => {
+            this.draggedModel = event.oldIndex;
+            this.draggedOnModel = event.newIndex;
+            this.performActionsAfterSort();
         });
     }
 
@@ -41,12 +36,16 @@ export class SortableOption {
 
     reOrderEntitiesArray() {
 
-        let draggedOnValue = this.vueInstance.entitiesarray[this.draggedOnModel];
+        Array.prototype.move = function (from, to) {
+            this.splice(to, 0, this.splice(from, 1)[0]);
+        };
 
-        Vue.set(this.vueInstance.entitiesarray, this.draggedOnModel, this.vueInstance.entitiesarray[this.draggedModel])
-        Vue.set(this.vueInstance.entitiesarray, this.draggedOnModel, draggedOnValue)
+        let tmp = this.vueInstance.entitiesarray.slice();
 
-        this.vueInstance.entitiesarray.splice(this.vueInstance.entitiesarray.length)
+        tmp.move(this.draggedModel, this.draggedOnModel);
+
+        this.vueInstance.entitiesarray = Object.assign(this.vueInstance.entitiesarray, tmp)
+        
     }
 
     determineIfAjaxCallIsNecessary() {
