@@ -1,10 +1,10 @@
 <template>
     <div class="col-xs-6">
-        <button v-on:click="onClick" type="button" class="btn btn-link no-padding">
+        <button v-on:click="onClick(computedModalId)" type="button" class="btn btn-link no-padding">
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
         </button>
-        <div v-if="params.confirmation" class="modal fade" tabindex="-1" role="dialog"
-             aria-labelledby="mySmallModalLabel" aria-hidden="true" id="confirmation-modal">
+        <div v-if="params.confirmation" v-bind:id="computedModalId" class="modal fade" tabindex="-1" role="dialog"
+             aria-labelledby="mySmallModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -14,12 +14,12 @@
                     </div>
                     <div class="modal-footer">
                         <div class="col-xs-6">
-                            <button v-on:click="onConfirmationClick" type="button" class="btn btn-success btn-block"
+                            <button v-on:click="onConfirmationClick(computedModalId)" type="button" class="btn btn-success btn-block"
                                     id="modal-btn-yes">{{acceptText}}
                             </button>
                         </div>
                         <div class="col-xs-6">
-                            <button v-on:click="onConfirmationDeclined" type="button" class="btn btn-danger btn-block"
+                            <button v-on:click="onConfirmationDeclined(computedModalId)" type="button" class="btn btn-danger btn-block"
                                     id="modal-btn-no">{{declineText}}
                             </button>
                         </div>
@@ -37,6 +37,9 @@
         props: ['data', 'params'],
 
         computed: {
+            computedModalId: function () {
+                return this.modalId ? this.modalId : Math.floor(Math.random() * 10000 + 1);
+            },
             acceptText: function () {
                 if (this.params.confirmation.acceptText) {
                     return this.params.confirmation.acceptText;
@@ -58,17 +61,17 @@
         },
 
         methods: {
-            onClick: function () {
+            onClick: function (modalId) {
                 if (this.params.confirmation) {
-                    $("#confirmation-modal").modal('show');
+                    $('#' + modalId).modal('show');
                 } else {
                     this.onConfirmationClick();
                 }
             },
-            onConfirmationClick: function () {
+            onConfirmationClick: function (modalId) {
                 this.performDeleteAjaxCall();
                 this.removeDataFromEntityArray(this.data);
-                this.hideConfirmationModal();
+                this.hideConfirmationModal(modalId);
             },
             removeDataFromEntityArray: function (data) {
                 let index = this.$parent.entitiesarray.indexOf(data);
@@ -79,11 +82,11 @@
                     this.data['remove_url']
                 );
             },
-            onConfirmationDeclined: function () {
-                this.hideConfirmationModal();
+            onConfirmationDeclined: function (modalId) {
+                this.hideConfirmationModal(modalId);
             },
-            hideConfirmationModal: function () {
-                $("#confirmation-modal").modal('hide');
+            hideConfirmationModal: function (modalId) {
+                $('#' + modalId).modal('hide');
             }
         }
     }
