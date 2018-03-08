@@ -28,7 +28,7 @@
                 return this.modalId ? this.modalId : Math.floor(Math.random() * 10000 + 1);
             },
             html() {
-                return require('../svgs/html.svg')
+                return require('../svgs/html-icon.png')
             }
         },
 

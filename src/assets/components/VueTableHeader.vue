@@ -19,10 +19,7 @@
 
         methods: {
             extractHeaderLabelFromHeader(header) {
-                if (header.label) {
-                    return header.label;
-                }
-                return header.key
+                return header.label ? header.label : header.key
             }
         }
     }

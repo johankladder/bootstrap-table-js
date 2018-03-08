@@ -11,45 +11,64 @@ namespace JohanKladder\BootstrapTableJs;
 class BootstrapTable
 {
 
-
-    public static function create(array $options = [])
-    {
-        $instant = new BootstrapTable($options);
-        return $instant->render();
-    }
-
     private $options;
 
     private $data;
 
     private $headers;
 
+    /**
+     * @param array $options
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Exception
+     */
+    public static function create(array $options = [])
+    {
+        $instant = new BootstrapTable($options);
+        return $instant->render();
+    }
+
     public function __construct(array $options = [])
     {
         $this->options = $options;
     }
 
+    /**
+     * @return array|mixed
+     * @throws \Exception
+     */
     private function getData()
     {
-        if(!$this->data) {
-            $this->data = $this->extractFromOptions('data', new BootstrapTableJsException());
+        if (!$this->data) {
+            $this->data = $this->extractFromOptions('data', new BootstrapTableJsException('Missing data'));
         }
         return $this->data;
     }
 
+    /**
+     * @return array|mixed
+     * @throws \Exception
+     */
     private function getHeaders()
     {
-        if(!$this->headers) {
-            $this->headers = $this->extractFromOptions('headers', new BootstrapTableJsException());
+        if (!$this->headers) {
+            $this->headers = $this->extractFromOptions('headers', new BootstrapTableJsException('Missing headers'));
         }
         return $this->headers;
     }
 
+    /**
+     * @return array|mixed
+     * @throws \Exception
+     */
     private function getTableOptions()
     {
         return $this->extractFromOptions('options');
     }
 
+    /**
+     * @throws \Exception
+     */
     private function getCustomValues()
     {
         $hit = false;
@@ -60,12 +79,16 @@ class BootstrapTable
             }
         }
         if (!$hit) {
-            $this->data = $this->extractFromOptions('data', new BootstrapTableJsException());
+            $this->data = $this->extractFromOptions('data', new BootstrapTableJsException('Missing data'));
         }
 
         $this->getAddonUrls($this->getHeaders());
     }
 
+    /**
+     * @param $header
+     * @throws \Exception
+     */
     private function setCustomValueData($header)
     {
         $tempData = $this->getData();
@@ -102,6 +125,12 @@ class BootstrapTable
     }
 
 
+    /**
+     * @param $key
+     * @param \Exception|null $exception
+     * @return array|mixed
+     * @throws \Exception
+     */
     private
     function extractFromOptions($key, \Exception $exception = null)
     {
@@ -115,6 +144,10 @@ class BootstrapTable
         return [];
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Exception
+     */
     public
     function render()
     {

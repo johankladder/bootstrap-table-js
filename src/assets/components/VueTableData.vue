@@ -8,7 +8,7 @@
                         <image-data-addon
                                 v-bind:data=data
                                 v-bind:params=extractAddonParams(addon)
-                        ></image-data-addon>
+                        />
                     </div>
                     <div v-else-if="extractAddonKey(addon) === 'index'">
                         {{index}}
@@ -17,30 +17,30 @@
                         <color-data-addon
                                 v-bind:data=data
                                 v-bind:params=extractAddonParams(addon)
-                        ></color-data-addon>
+                        />
                     </div>
                     <div v-else-if="extractAddonKey(addon) === 'html'">
                         <html-data-addon
                                 v-bind:data=data
                                 v-bind:params=extractAddonParams(addon)
-                        ></html-data-addon>
+                        />
                     </div>
                     <div v-else-if="extractAddonKey(addon) === 'remove'">
                         <delete-data-addon
                                 v-bind:data=entity
                                 v-bind:params=extractAddonParams(addon)
-                        ></delete-data-addon>
+                        />
                     </div>
                     <div v-else-if="extractAddonKey(addon) === 'update'">
                         <update-data-addon
                                 v-bind:data=entity
                                 v-bind:params=extractAddonParams(addon)
-                        ></update-data-addon>
+                        />
                     </div>
                     <div v-else>
                         <default-data-addon
                                 v-bind:data=data
-                        ></default-data-addon>
+                        />
                     </div>
                 </div>
             </div>
@@ -75,17 +75,16 @@
         methods: {
 
             parseEntityToCurrentHeaderFormat(entity) {
-                const dataArr = [];
-                for (let index = 0; index < this.headers.length; index++) {
-                    const header = this.headers[index];
-                    const tempData = [];
-                    tempData['data'] = this.extractDataFromEntityWithHeader(
-                        entity, header
+                let tableDataArray = [];
+                $.each(this.headers, (index, header) => {
+                    tableDataArray.push(
+                        {
+                            'data': this.extractDataFromEntityWithHeader(entity, header),
+                            'header': header
+                        }
                     );
-                    tempData['header'] = header;
-                    dataArr.push(tempData);
-                }
-                return dataArr;
+                });
+                return tableDataArray;
             },
 
             extractDataFromEntityWithHeader(entity, header) {
@@ -93,10 +92,7 @@
             },
 
             extractAddonKey(addon) {
-                if (addon) {
-                    return addon.key
-                }
-                return undefined;
+                return addon ? addon.key : undefined;
             },
 
             extractAddonParams(addon) {
@@ -104,14 +100,7 @@
             },
 
             extractAddons(data) {
-                if (data.header.addon) {
-                    return data.header.addon;
-                }
-                return [
-                    [
-                        'default'
-                    ]
-                ]
+                return data.header.addon ? data.header.addon : [['default']]
             }
 
         },

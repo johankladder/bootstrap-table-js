@@ -31,8 +31,7 @@
 
         data: function () {
             return {
-                'entitiesarray': {},
-                'EntityData': JSON.parse(this.entities),
+                'entitiesarray': {}
             }
         },
 

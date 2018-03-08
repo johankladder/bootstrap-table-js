@@ -1,7 +1,7 @@
 <template>
     <div class="col-xs-6">
         <button v-on:click="onClick(computedModalId)" type="button" class="btn btn-link no-padding">
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-trash delete-icon" aria-hidden="true"></span>
         </button>
         <div v-if="params.confirmation" v-bind:id="computedModalId" class="modal fade" tabindex="-1" role="dialog"
              aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -14,12 +14,14 @@
                     </div>
                     <div class="modal-footer">
                         <div class="col-xs-6">
-                            <button v-on:click="onConfirmationClick(computedModalId)" type="button" class="btn btn-success btn-block"
+                            <button v-on:click="onConfirmationClick(computedModalId)" type="button"
+                                    class="btn btn-success btn-block"
                                     id="modal-btn-yes">{{acceptText}}
                             </button>
                         </div>
                         <div class="col-xs-6">
-                            <button v-on:click="onConfirmationDeclined(computedModalId)" type="button" class="btn btn-danger btn-block"
+                            <button v-on:click="onConfirmationDeclined(computedModalId)" type="button"
+                                    class="btn btn-danger btn-block"
                                     id="modal-btn-no">{{declineText}}
                             </button>
                         </div>
@@ -61,6 +63,11 @@
         },
 
         methods: {
+            mounted: function () {
+                $('.no-padding').closest('.parent-flex').css({
+                    'float': 'right'
+                })
+            },
             onClick: function (modalId) {
                 if (this.params.confirmation) {
                     $('#' + modalId).modal('show');
